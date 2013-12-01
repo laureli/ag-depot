@@ -10,14 +10,21 @@
 <body>
 
   <body id="store" >
-    div id="banner" >
-    <%= image_tag("logo.png") %>
-    <%= @page_title || "yah books" %>
-  </div>
+    <div id="banner" >
+      <%= image_tag("logo.png") %>
+      <%= @page_title || "yah books" %>
+    </div>
   <div id="columns" >
     <div id="side" >
+      <% if @cart %>
+        <%= hidden_div_if(@cart.line_items.empty?, :id => "cart" ) do %>
+          <%= render @cart %>
+        <% end %>
+      <% end %>
+
       <%= pluralize session[:counter], 'time' %>
       <%= @date_loaded %> <br />
+      
       <a href="http://www...." >Home</a><br />
       <a href="http://www..../faq" >Questions</a><br />
       <a href="http://www..../news" >News</a><br />
