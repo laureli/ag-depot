@@ -12,6 +12,15 @@ class CartsController < ApplicationController
   def show
   end
 
+  rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
+
+  # GET /carts
+    def invalid_cart
+      logger.error "Attempt to access invalid cart #{params[:id]}"
+      redirect_to store_url, notice: 'Invalid cart'
+    end
+
+
   # GET /carts/new
   def new
     @cart = Cart.new
